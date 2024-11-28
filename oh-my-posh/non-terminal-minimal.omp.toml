@@ -81,3 +81,13 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     ]
     background = "transparent"
     template = "❯"
+
+[transient_prompt]
+  type = "text"
+  style = "plain"
+  foreground_templates = [
+    "{{if gt .Code 0}}p:red{{end}}",
+    "{{if eq .Code 0}}p:green{{end}}",
+  ]
+  background = 'transparent'
+  template = '❯ '
