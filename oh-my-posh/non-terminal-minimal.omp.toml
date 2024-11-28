@@ -2,7 +2,7 @@
 
 version = 3
 final_space = true
-console_title_template = '❯ {{ .Shell }} in {{ .Folder }}'
+console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
 
 [palette]
   black = "#000000"
@@ -13,13 +13,13 @@ console_title_template = '❯ {{ .Shell }} in {{ .Folder }}'
   yellow = "#ffff66"
 
 [[blocks]]
-  type = 'prompt'
-  alignment = 'left'
+  type = "prompt"
+  alignment = "left"
   newline = true
 
   [[blocks.segments]]
     type = "root"
-    style = "powerline"
+    style = "plain"
     foreground = "p:yellow"
     background = "transparent"
     template = "󱐋 "
@@ -48,21 +48,36 @@ console_title_template = '❯ {{ .Shell }} in {{ .Folder }}'
 
   [[blocks.segments]]
     type = "java"
-    style = "diamond"
+    style = "plain"
     foreground = "p:green"
     background = "transparent"
     template = "  {{ .Full }}"
 
   [[blocks.segments]]
     type = "go"
-    style = "diamond"
+    style = "plain"
     foreground = "p:green"
     background = "transparent"
     template = " ﳑ {{ .Major }}.{{ .Minor }}"
 
   [[blocks.segments]]
     type = "angular"
-    style = "diamond"
+    style = "plain"
     foreground = "p:green"
     background = "transparent"
     template = "  {{ .Major }}.{{ .Minor }}"
+
+[[blocks]]
+  type = "prompt"
+  alignment = "left"
+  newline = true
+
+  [[blocks.segments]]
+    type = "text"
+    style = "plain"
+    foreground_templates = [
+      "{{if gt .Code 0}}p:red{{end}}",
+      "{{if eq .Code 0}}p:green{{end}}",
+    ]
+    background = "transparent"
+    template = "❯"
