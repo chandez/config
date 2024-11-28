@@ -1,7 +1,8 @@
-#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
 
 version = 3
 final_space = true
+auto_upgrade = true
 console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
 
 [palette]
@@ -11,6 +12,11 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
   red = "#ef5350"
   white = "#FFFFFF"
   yellow = "#ffff66"
+  orange = "#F59574"
+
+[cache]
+  duration = "1h"
+  strategy = "session"
 
 [[blocks]]
   type = "prompt"
@@ -29,43 +35,87 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     style = "plain"
     foreground = "p:blue"
     background = "transparent"
-    template = " {{ .Folder }} ❯"
+    template = "\u256d\u2500\u2500  {{ .Folder }} ❯ "
 
-  [[blocks.segments]]
+[[blocks.segments]]
     type = "git"
     style = "plain"
     foreground = "p:red"
     background = "transparent"
-    template = "  {{ .HEAD }}{{if .BranchStatus }}{{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} ❯"
-    background_templates = ["{{ if or (.Working.Changed) (.Staging.Changed) }}p:red{{ end }}", "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:red{{ end }}", "{{ if gt .Ahead 0 }}p:red{{ end }}", "{{ if gt .Behind 0 }}p:red{{ end }}"]
+    template = """ {{ .HEAD }} \
+      {{if .BranchStatus }}{{ .BranchStatus }}{{ end }}\
+      {{ if .Working.Changed }}  {{ .Working.String }}{{ end }}\
+      {{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}\
+      {{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }} ❯ """
 
-  [[blocks.segments]]
-    type = "dotnet"
-    style = "plain"
-    foreground = "p:green"
-    background = "transparent"
-    template = "  {{ .Major }}.{{ .Minor }}"
-
-  [[blocks.segments]]
-    type = "java"
-    style = "plain"
-    foreground = "p:green"
-    background = "transparent"
-    template = "  {{ .Full }}"
+    [blocks.segments.properties]
+      fetch_status = true
+      fetch_upstream_icon = false
+      source = "cli"
 
   [[blocks.segments]]
     type = "go"
     style = "plain"
     foreground = "p:green"
     background = "transparent"
-    template = " ﳑ {{ .Major }}.{{ .Minor }}"
+    template = "ﳑ {{ .Major }}.{{ .Minor }} ❯ "
+
+  [[blocks.segments]]
+    type = "java"
+    style = "plain"
+    foreground = "p:green"
+    background = "transparent"
+    template = " {{ .Major }}.{{ .Minor }} ❯ "
+
+  [[blocks.segments]]
+    type = "python"
+    style = "plain"
+    foreground = "p:green"
+    template = "  {{ .Major }}.{{ .Minor }} ❯ "
+
+  [[blocks.segments]]
+    type = "dotnet"
+    style = "plain"
+    foreground = "p:green"
+    background = "transparent"
+    template = "  {{ .Major }}.{{ .Minor }} ❯ "
+
+  [[blocks.segments]]
+    type = "lua"
+    style = "plain"
+    foreground = "p:green"
+    template = " {{ .Major }}.{{ .Minor }} ❯ "
+
+  [[blocks.segments]]
+    type = "elixir"
+    style = "plain"
+    foreground = "p:green"
+    background = "transparent"
+    template = " {{ .Major }}.{{ .Minor }} ❯ "
+
+  [[blocks.segments]]
+    type = "react"
+    style = "plain"
+    foreground = "p:green"
+    background = "transparent"
+    template = " {{ .Major }}.{{ .Minor }} ❯ "
 
   [[blocks.segments]]
     type = "angular"
     style = "plain"
     foreground = "p:green"
     background = "transparent"
-    template = "  {{ .Major }}.{{ .Minor }}"
+    template = " {{ .Major }}.{{ .Minor }} ❯ "
+
+[[blocks]]
+  type = "prompt"
+  alignment = "right"
+
+  [[blocks.segments]]
+    type = "time"
+    style = "plain"
+    foreground = "p:orange"
+    template = "{{ .CurrentDate | date \" 15:04:05 \" }}"
 
 [[blocks]]
   type = "prompt"
@@ -75,19 +125,16 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
   [[blocks.segments]]
     type = "text"
     style = "plain"
-    foreground_templates = [
-      "{{if gt .Code 0}}p:red{{end}}",
-      "{{if eq .Code 0}}p:green{{end}}",
-    ]
+    foreground = "p:blue"
     background = "transparent"
-    template = "❯"
+    template = "\u2570\u2500"
 
-[transient_prompt]
-  type = "text"
-  style = "plain"
-  foreground_templates = [
-    "{{if gt .Code 0}}p:red{{end}}",
-    "{{if eq .Code 0}}p:green{{end}}",
-  ]
-  background = 'transparent'
-  template = '❯ '
+    [blocks.segments.properties]
+      always_enabled = true
+      status_template = "{{ if eq .Code 0 }} \uf00c{{else}} \uf071 {{ reason .Code }}{{ end }}"
+
+  [[blocks.segments]]
+    type = "text"
+    style = "plain"
+    foreground = "p:blue"
+    template = "\uf054"
