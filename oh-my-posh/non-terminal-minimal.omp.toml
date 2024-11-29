@@ -9,14 +9,17 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
   black = "#000000"
   blue = "#0077c2"
   green = "#6CA35E"
-  red = "#ef5350"
+  red = "#EF5350"
   white = "#FFFFFF"
   yellow = "#ffff66"
   orange = "#F59574"
+  gray = "#808080"
+  coral = "#CD5C5C"
 
 [cache]
   duration = "1h"
   strategy = "session"
+
 
 [[blocks]]
   type = "prompt"
@@ -35,18 +38,18 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     style = "plain"
     foreground = "p:blue"
     background = "transparent"
-    template = "\u256d\u2500\u2500  {{ .Folder }} ❯ "
+    template = "\u256d\u2500\u2500  <b>{{ .Folder }}</b> ❯ "
 
-[[blocks.segments]]
+  [[blocks.segments]]
     type = "git"
     style = "plain"
     foreground = "p:red"
     background = "transparent"
-    template = """ {{ .HEAD }} \
+    template = """ <b>{{ .HEAD }} \
       {{if .BranchStatus }}{{ .BranchStatus }}{{ end }}\
       {{ if .Working.Changed }}  {{ .Working.String }}{{ end }}\
       {{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}\
-      {{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }} ❯ """
+      {{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}</b> ❯ """
 
     [blocks.segments.properties]
       fetch_status = true
@@ -58,54 +61,54 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     style = "plain"
     foreground = "p:green"
     background = "transparent"
-    template = "ﳑ {{ .Major }}.{{ .Minor }} ❯ "
+    template = "ﳑ <b>{{ .Major }}.{{ .Minor }}</b> ❯ "
 
   [[blocks.segments]]
     type = "java"
     style = "plain"
     foreground = "p:green"
     background = "transparent"
-    template = " {{ .Major }}.{{ .Minor }} ❯ "
+    template = " <b>{{ .Major }}.{{ .Minor }}</b> ❯ "
 
   [[blocks.segments]]
     type = "python"
     style = "plain"
     foreground = "p:green"
-    template = "  {{ .Major }}.{{ .Minor }} ❯ "
+    template = "  <b>{{ .Major }}.{{ .Minor }}</b> ❯ "
 
   [[blocks.segments]]
     type = "dotnet"
     style = "plain"
     foreground = "p:green"
     background = "transparent"
-    template = "  {{ .Major }}.{{ .Minor }} ❯ "
+    template = "  <b>{{ .Major }}.{{ .Minor }}</b> ❯ "
 
   [[blocks.segments]]
     type = "lua"
     style = "plain"
     foreground = "p:green"
-    template = " {{ .Major }}.{{ .Minor }} ❯ "
+    template = " <b>{{ .Major }}.{{ .Minor }}</b> ❯ "
 
   [[blocks.segments]]
     type = "elixir"
     style = "plain"
     foreground = "p:green"
     background = "transparent"
-    template = " {{ .Major }}.{{ .Minor }} ❯ "
+    template = " <b>{{ .Major }}.{{ .Minor }}</b> ❯ "
 
   [[blocks.segments]]
     type = "react"
     style = "plain"
     foreground = "p:green"
     background = "transparent"
-    template = " {{ .Major }}.{{ .Minor }} ❯ "
+    template = " <b>{{ .Major }}.{{ .Minor }}</b> ❯ "
 
   [[blocks.segments]]
     type = "angular"
     style = "plain"
     foreground = "p:green"
     background = "transparent"
-    template = " {{ .Major }}.{{ .Minor }} ❯ "
+    template = " <b>{{ .Major }}.{{ .Minor }}</b> ❯ "
 
 [[blocks]]
   type = "prompt"
@@ -115,7 +118,7 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     type = "time"
     style = "plain"
     foreground = "p:orange"
-    template = "{{ .CurrentDate | date \" 15:04:05 \" }}"
+    template = "{{ .CurrentDate | date .Format }} "
 
 [[blocks]]
   type = "prompt"
@@ -129,12 +132,21 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     background = "transparent"
     template = "\u2570\u2500"
 
-    [blocks.segments.properties]
-      always_enabled = true
-      status_template = "{{ if eq .Code 0 }} \uf00c{{else}} \uf071 {{ reason .Code }}{{ end }}"
-
   [[blocks.segments]]
     type = "text"
     style = "plain"
-    foreground = "p:blue"
+    # foreground_templates = [
+    #   "{{if gt .Code 0}}p:coral{{end}}",
+    #   "{{if eq .Code 0}}p:gray{{end}}",
+    # ]
+    foreground = "p:gray"
+    background = "transparent"
     template = "\uf054"
+
+  # [transient_prompt]
+  #   foreground_templates = [
+  #     "{{if gt .Code 0}}p:coral{{end}}",
+  #     "{{if eq .Code 0}}p:gray{{end}}",
+  #   ]
+  #   background = "transparent"
+  #   template = "\uf054"
