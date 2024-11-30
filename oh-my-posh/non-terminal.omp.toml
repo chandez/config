@@ -73,7 +73,7 @@ console_title_template = "{{ .Shell }} in {{ .Folder }}"
   [[blocks.segments]]
 #    leading_diamond = "<transparent,p:green></>"
     trailing_diamond = ""
-    template = " ‭ﳑ  {{ .Full }} "
+    template = "ﳑ <b>{{ .Major }}.{{ .Minor }}</b> "
     foreground = "p:white"
     background = "p:green"
     type = "go"
