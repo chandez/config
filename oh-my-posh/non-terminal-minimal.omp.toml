@@ -16,10 +16,17 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
   gray = "#808080"
   coral = "#CD5C5C"
 
-[cache]
-  duration = "1h"
-  strategy = "session"
+# [cache]
+#   duration = "1h"
+#   strategy = "session"
 
+# [transient_prompt]
+#   foreground_templates = [
+#     "{{if gt .Code 0}}p:coral{{end}}",
+#     "{{if eq .Code 0}}p:gray{{end}}",
+#   ]
+#   background = "transparent"
+#   template = "\uf054"
 
 [[blocks]]
   type = "prompt"
@@ -52,9 +59,9 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
       {{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}</b> ❯ """
 
     [blocks.segments.properties]
+      branch_max_length = 25
       fetch_status = true
       fetch_upstream_icon = false
-      source = "cli"
 
   [[blocks.segments]]
     type = "go"
@@ -81,7 +88,7 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     style = "plain"
     foreground = "p:green"
     background = "transparent"
-    template = "  <b>{{ .Major }}.{{ .Minor }}</b> ❯ "
+    template = " <b>{{ .Major }}.{{ .Minor }}</b> ❯ "
 
   [[blocks.segments]]
     type = "lua"
@@ -143,10 +150,3 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     background = "transparent"
     template = "\uf054"
 
-  # [transient_prompt]
-  #   foreground_templates = [
-  #     "{{if gt .Code 0}}p:coral{{end}}",
-  #     "{{if eq .Code 0}}p:gray{{end}}",
-  #   ]
-  #   background = "transparent"
-  #   template = "\uf054"
