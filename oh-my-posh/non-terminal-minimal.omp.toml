@@ -142,10 +142,10 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
   [[blocks.segments]]
     type = "text"
     style = "plain"
-    foreground_templates = [
-      "{{if gt .Code 0}}p:coral{{end}}",
-      "{{if eq .Code 0}}p:gray{{end}}",
-    ]
+    # foreground_templates = [
+    #   "{{if gt .Code 0}}p:coral{{end}}",
+    #   "{{if eq .Code 0}}p:gray{{end}}",
+    # ]
     foreground = "p:gray"
     background = "transparent"
     template = "\uf054"
