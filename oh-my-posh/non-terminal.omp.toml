@@ -6,9 +6,22 @@ console_title_template = "{{ .Shell }} in {{ .Folder }}"
   black = "#000000"
   blue = "#0077c2"
   green = "#6CA35E"
-  red = "#ef5350"
+  red = "#EF5350"
   white = "#FFFFFF"
   yellow = "#ffff66"
+  orange = "#F59574"
+  gray = "#808080"
+  coral = "#CD5C5C"
+  dark_gray = "#404040"
+
+[transient_prompt]
+  # foreground_templates = [
+  #   "{{if gt .Code 0}}p:coral{{end}}",
+  #   "{{if eq .Code 0}}p:gray{{end}}",
+  # ]
+  foreground = "p:dark_gray"
+  background = "transparent"
+  template = " "
 
 [[blocks]]
   type = "prompt"
@@ -16,91 +29,88 @@ console_title_template = "{{ .Shell }} in {{ .Folder }}"
   newline = true
 
   [[blocks.segments]]
-    leading_diamond = ""
-    trailing_diamond = ""
-    template = "  {{ .Path }} "
-    foreground = "p:white"
-    powerline_symbol = ""
-    background = "p:blue"
     type = "path"
     style = "diamond"
-
-    [blocks.segments.properties]
-      cache_duration = "none"
-      style = "folder"
+    foreground = "p:white"
+    background = "p:blue"
+    template = "  {{ .Folder }} "
+    leading_diamond = ""
+    trailing_diamond = ""
 
   [[blocks.segments]]
-    leading_diamond = ""
-#    trailing_diamond = ""
-    template = "  {{ .HEAD }} {{if .BranchStatus }}{{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} "
-    foreground = "p:white"
-    powerline_symbol = ""
-    background = "p:red"
     type = "git"
-    style = "powerline"
-    background_templates = ["{{ if or (.Working.Changed) (.Staging.Changed) }}p:red{{ end }}", "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:red{{ end }}", "{{ if gt .Ahead 0 }}p:red{{ end }}", "{{ if gt .Behind 0 }}p:red{{ end }}"]
+    style = "diamond"
+    foreground = "p:white"
+    background = "p:red"
+    template = """  <b>{{ .HEAD }} \
+      {{if .BranchStatus }}{{ .BranchStatus }}{{ end }}\
+      {{ if .Working.Changed }}  {{ .Working.String }}{{ end }}\
+      {{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}\
+      {{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}</b> """
+    leading_diamond = "<transparent,p:red></>"
+    trailing_diamond = ""
 
     [blocks.segments.properties]
       branch_max_length = 25
-      cache_duration = "none"
       fetch_status = true
       fetch_upstream_icon = true
 
   [[blocks.segments]]
-#    leading_diamond = "<transparent,p:green></>"
-    trailing_diamond = ""
-    template = "  {{ .Major }}.{{ .Minor }} "
-    foreground = "p:white"
-    background = "p:green"
     type = "dotnet"
     style = "diamond"
-
-    [blocks.segments.properties]
-      cache_duration = "none"
-
-  [[blocks.segments]]
-#    leading_diamond = "<transparent,p:green></>"
-    trailing_diamond = ""
-    template = "  {{ .Full }}"
     foreground = "p:white"
     background = "p:green"
+    template = "  {{ .Major }}.{{ .Minor }} "
+    leading_diamond = "<transparent,p:green></>"
+    trailing_diamond = ""
+
+  [[blocks.segments]]
     type = "java"
     style = "diamond"
-
-    [blocks.segments.properties]
-      cache_duration = "none"
-
-  [[blocks.segments]]
-#    leading_diamond = "<transparent,p:green></>"
-    trailing_diamond = ""
-    template = "ﳑ <b>{{ .Major }}.{{ .Minor }}</b> "
     foreground = "p:white"
     background = "p:green"
+    template = "  {{ .Full }}"
+    leading_diamond = "<transparent,p:green></>"
+    trailing_diamond = ""
+
+  [[blocks.segments]]
     type = "go"
     style = "diamond"
-
-    [blocks.segments.properties]
-      cache_duration = "none"
-
-  [[blocks.segments]]
-#    leading_diamond = "<transparent,p:green></>"
-    trailing_diamond = ""
-    template = "  {{ .Major }}.{{ .Minor }} "
     foreground = "p:white"
     background = "p:green"
-    type = "angular"
-    style = "diamond"
-
-    [blocks.segments.properties]
-      cache_duration = "none"
+    template = " ﳑ <b>{{ .Major }}.{{ .Minor }}</b> "
+    leading_diamond = "<transparent,p:green></>"
+    trailing_diamond = ""
 
   [[blocks.segments]]
-    template = "󱐋"
-    foreground = "p:black"
-    powerline_symbol = ""
-    background = "p:yellow"
+    type = "angular"
+    style = "diamond"
+    foreground = "p:white"
+    background = "p:green"
+    template = "  {{ .Major }}.{{ .Minor }} "
+    leading_diamond = "<transparent,p:green></>"
+    trailing_diamond = ""
+
+  [[blocks.segments]]
     type = "root"
-    style = "powerline"
+    style = "diamond"
+    foreground = "p:black"
+    background = "p:yellow"
+    template = "󱐋"
+    leading_diamond = "<transparent,p:yellow></>"
+    trailing_diamond = ""
 
     [blocks.segments.properties]
       cache_duration = "none"
+
+# [[blocks]]
+#   type = "prompt"
+#   alignment = "left"
+#   newline = true
+
+#   [[blocks.segments]]
+#     type = "text"
+#     style = "plain"
+#     foreground = "p:gray"
+#     background = "transparent"
+#     template = ""
