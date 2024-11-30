@@ -1,5 +1,9 @@
 "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
 
+# Preview
+# ╭──  C:\ ❯                                                                           15:39:12
+# ╰─
+
 version = 3
 final_space = true
 auto_upgrade = true
@@ -28,7 +32,7 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
   # ]
   foreground = "p:dark_gray"
   background = "transparent"
-  template = "\uf054 "
+  template = " "
 
 [[blocks]]
   type = "prompt"
@@ -47,7 +51,7 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     style = "plain"
     foreground = "p:blue"
     background = "transparent"
-    template = "\u256d\u2500\u2500  <b>{{ .Folder }}</b> ❯ "
+    template = "╭──  <b>{{ .Folder }}</b> ❯ "
 
   [[blocks.segments]]
     type = "git"
@@ -139,7 +143,7 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     style = "plain"
     foreground = "p:blue"
     background = "transparent"
-    template = "\u2570\u2500"
+    template = "╰─"
 
   [[blocks.segments]]
     type = "text"
@@ -150,4 +154,4 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     # ]
     foreground = "p:gray"
     background = "transparent"
-    template = "\uf054"
+    template = ""
