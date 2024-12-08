@@ -4,6 +4,10 @@
 # ╭──  C:\ ❯                                                                           15:39:12
 # ╰─
 
+# Preview Admin
+# ╭── 󱐋  C:\ ❯                                                                         13:08:56
+# ╰─
+
 version = 3
 final_space = true
 auto_upgrade = true
@@ -40,6 +44,13 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
   newline = true
 
   [[blocks.segments]]
+    type = "path"
+    style = "plain"
+    foreground = "p:blue"
+    background = "transparent"
+    template = "╭── "
+
+  [[blocks.segments]]
     type = "root"
     style = "plain"
     foreground = "p:yellow"
@@ -51,7 +62,7 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     style = "plain"
     foreground = "p:blue"
     background = "transparent"
-    template = "╭──  <b>{{ .Folder }}</b> ❯ "
+    template = " <b>{{ .Folder }}</b> ❯ "
 
   [[blocks.segments]]
     type = "git"
