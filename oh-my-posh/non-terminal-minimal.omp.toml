@@ -41,7 +41,6 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
 [[blocks]]
   type = "prompt"
   alignment = "left"
-  newline = true
 
   [[blocks.segments]]
     type = "path"
@@ -49,13 +48,6 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     foreground = "p:blue"
     background = "transparent"
     template = "╭── "
-
-  [[blocks.segments]]
-    type = "root"
-    style = "plain"
-    foreground = "p:yellow"
-    background = "transparent"
-    template = "󱐋 "
 
   [[blocks.segments]]
     type = "path"
@@ -136,16 +128,6 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
 
 [[blocks]]
   type = "prompt"
-  alignment = "right"
-
-  [[blocks.segments]]
-    type = "time"
-    style = "plain"
-    foreground = "p:orange"
-    template = "{{ .CurrentDate | date .Format }} "
-
-[[blocks]]
-  type = "prompt"
   alignment = "left"
   newline = true
 
@@ -154,7 +136,7 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     style = "plain"
     foreground = "p:blue"
     background = "transparent"
-    template = "╰─"
+    template = "╰─ "
 
   [[blocks.segments]]
     type = "text"
@@ -166,3 +148,27 @@ console_title_template = "❯ {{ .Shell }} in {{ .Folder }}"
     foreground = "p:gray"
     background = "transparent"
     template = ""
+
+[[blocks]]
+  type = "rprompt"
+  overflow = "hidden"
+
+  [[blocks.segments]]
+    type = "executiontime"
+    style = "plain"
+    foreground = "p:yellow"
+    background = "transparent"
+    template = "{{ .FormattedMs }} | "
+
+  [[blocks.segments]]
+    type = "time"
+    style = "plain"
+    foreground = "p:orange"
+    template = "{{ .CurrentDate | date .Format }} "
+
+  [[blocks.segments]]
+    type = "root"
+    style = "plain"
+    foreground = "p:yellow"
+    background = "transparent"
+    template = "󱐋 "
