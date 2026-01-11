@@ -1,0 +1,16 @@
+## --------------------------------------------------------------- ##
+## Test
+
+git log --pretty=format:"%C(yellow)%h%Creset %C(green)%ad%Creset %C(magenta)%<(10,trunc)%an%Creset: %s" --date=short --no-decorate -n 5
+
+## --------------------------------------------------------------- ##
+## alias
+
+git config --global alias.clog '!f() { git log --pretty=format:"%C(yellow)%h%Creset %C(green)%ad%Creset %C(magenta)%<(10,trunc)%an%Creset: %s" --date=short --no-decorate -n "${1:-10}"; }; f'
+
+## --------------------------------------------------------------- ##
+## command
+
+git clog 5
+
+## --------------------------------------------------------------- ##
