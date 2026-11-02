@@ -19,7 +19,6 @@ alias clog="git clog 5"
 alias ..="cd .."
 alias ...="cd ../.."
 
-# Functions
 # ───────────── Branches ─────────────
 # Switch branch; no argument goes to develop: gsw | gsw feature/x | gsw -c new-branch
 gsw() {
@@ -33,7 +32,6 @@ gb()    { git branch "$@" }                    # gb | gb -d feat | gb -D feat
 gba()   { git branch -a "$@" }                 # local + remote branches
 gbd()   { git branch -d "$@" }                 # safe delete (merged only)
 gbD()   { git branch -D "$@" }                 # force delete
-gbc()   { git switch -c "$@" }                 # create + switch: gbc feature/x
 gbm()   { git branch -m "$@" }                 # rename current: gbm new-name
 gcur()  { git branch --show-current }          # print current branch
 gbr()   { git branch --sort=-committerdate --format='%(committerdate:relative)%09%(refname:short)' | head -${1:-10} }  # recent branches
@@ -85,6 +83,7 @@ gpu() {
 gp()    { git pull }                           # pull latest for current branch
 gpf()   { git push --force-with-lease "$@" }   # safer force push
 gf()    { git fetch --all --prune }
+gfo()   { git fetch origin "${1:-develop}:${1:-develop}" }
 gpr()   { git pull --rebase "$@" }
 
 # ───────────── Rebase / merge ─────────────
@@ -103,7 +102,7 @@ gshl()  { git stash list }
 gsha()  { git stash apply "${1:-stash@{0}}" }
 
 # ───────────── Undo ─────────────
-gundo()    { git reset --soft HEAD~${1:-1} }   # undo last commit, keep changes staged
+gre()    { git reset --soft HEAD~${1:-1} }   # undo last commit, keep changes staged
 gunstage() { git restore --staged "${@:-.}" }
 gdiscard() { git restore "${@:-.}" }           # discard unstaged changes (careful)
 gnuke() {                                      # reset hard to remote; asks first
@@ -123,9 +122,37 @@ killport() {
   local pids=$(lsof -ti tcp:"$1")
   [[ -n $pids ]] && echo "$pids" | xargs kill -9 && echo "Killed process on :$1" || echo "Nothing on :$1"
 }
-serve()   { python3 -m http.server ${1:-8000} }
 reload()  { source ~/.zshrc && echo "zshrc reloaded" }
 path()    { echo "$PATH" | tr ':' '\n' }
 
 # Cheat sheet: list every function in this file with its comment
 ghelp() { grep -E '^[a-zA-Z]+\(\)' ~/.zsh/git-functions.zsh | sed 's/() *{.*}//; s/ *#/  →/' }
+
+# pnpm functions
+
+pni() {
+  if [ $# -eq 0 ]; then
+    pnpm install
+  else
+    pnpm add "$@"
+  fi
+}
+
+pnr() {
+  pnpm remove "$@"
+}
+
+pnw() {
+  pnpm why "$@"
+}
+
+pnr() {
+  if [ $# -eq 0 ]; then
+    pnpm run start:dev
+  elif [[ "$1" == "qa" || "$1" == "dev" || "$1" == "local" ]]; then
+    pnpm run "start:$1"
+  else
+    # Fallback for standard scripts like 'pnr build' or 'pnr test'
+    pnpm run "$@"
+  fi
+}
